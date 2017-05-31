@@ -4,7 +4,7 @@ A simple client module for accessing Visma eAccounting's API.
 
 ## Installation
 
-	npm install activecollab
+	npm install eaccounting
 
 ## Usage
 
