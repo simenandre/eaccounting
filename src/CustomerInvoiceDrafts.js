@@ -25,7 +25,7 @@ module.exports = (config) => {
 		return CoreModule.api('POST', endpoint, data);
 	}
 
-	function delete(id){
+	function remove(id){
 		return CoreModule.api('DELETE', endpoint + '/' + id);
 	}
 
@@ -34,6 +34,6 @@ module.exports = (config) => {
 		getAll,
 		update,
 		add,
-		delete,
+		remove,
 	}
 };

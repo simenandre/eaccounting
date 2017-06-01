@@ -1,5 +1,5 @@
 {
-  "name": "eaccounting-node",
+  "name": "eaccounting",
   "version": "1.0.0",
   "description": "A simple SDK for Visma eAccouting API",
   "main": "index.js",
