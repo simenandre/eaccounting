@@ -1,9 +1,7 @@
 'use strict';
 
 const Promise = require('bluebird');
-const request = Promise.promisify(require('request'), {
-  multiArgs: true,
-});
+const request = require('request-promise');
 
 module.exports = (config) => {
 
@@ -36,6 +34,7 @@ module.exports = (config) => {
 	function call(method, url, params){
 		const options = Object.assign({}, {
 			method,
+			json: true,
 			headers: {},
 		}, config.http);
 

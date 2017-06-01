@@ -13,7 +13,7 @@ module.exports = (config) => {
 	}
 
 	function getAll(){
-		return CoreModule.api('GET', endpoint);
+		return CoreModule.api('GET', 'CustomerListItems');
 	}
 
 	function update(id, data){
