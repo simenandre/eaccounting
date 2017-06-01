@@ -38,7 +38,7 @@ module.exports = (config) => {
 			headers: {},
 		}, config.http);
 
-		if(typeof bodyFormat !== 'undefined'){
+		if(typeof bodyFormat == 'undefined'){
 			bodyFormat = 'json';
 		}
 
@@ -56,7 +56,7 @@ module.exports = (config) => {
 					} else {
 						// joi should prevent us from getting here, but throw to be safe.
 						throw new Error(
-							`Unknown bodyFormat value: ${config.options.bodyFormat}`
+							`Unknown bodyFormat value: ${bodyFormat}`
 						);
 					}
 			    }

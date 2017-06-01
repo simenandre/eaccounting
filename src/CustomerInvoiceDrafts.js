@@ -3,7 +3,7 @@
 module.exports = (config) => {
 	const CoreModule = require('./core')(config);
 
-	const endpoint = 'customers';
+	const endpoint = 'customerinvoicedrafts';
 
 	function get(id){
 		if(typeof id === 'undefined'){

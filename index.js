@@ -4,41 +4,53 @@ const customerInvoiceDraftsModule = require('./src/CustomerInvoiceDrafts');
 const ArticlesModule = require('./src/Articles');
 const CustomersModule = require('./src/Customers');
 
-const globalOptions = {
-	http: {
-		uri: 'https://eaccountingapi-sandbox.test.vismaonline.com'
-	},
-	apiVersion: 'v1',
-};
+module.exports = (environment) => {
 
-const globalCredentials = {
-	auth: {
-		tokenHost: 'https://auth-sandbox.test.vismaonline.com/eaccountingapi/oauth',
-		tokenPath: '/eaccountingapi/oauth/token',
-		revokePath: '/eaccountingapi/oauth/revoke',
-		authorizePath: '/eaccountingapi/oauth/authorize'
+	if(typeof environment == 'undefined'){
+		var APIURL = 'https://eaccountingapi-sandbox.test.vismaonline.com';
+		var AUTHURL = 'https://auth-sandbox.test.vismaonline.com/eaccountingapi/oauth';
+	} else if (environment == 'production'){
+		var APIURL = 'https://eaccounting.vismaonline.com/api/';
+		var AUTHURL = 'https://auth.vismaonline.com/eaccountingapi/oauth/token';
 	}
-}
 
-module.exports = {
+	const globalOptions = {
+		http: {
+			uri: ''
+		},
+		apiVersion: 'v1',
+	};
 
-	auth(credentials) {
-		credentials = Object.assign({}, credentials, globalCredentials);
-		return require('simple-oauth2').create(credentials);
-	},
-	/**
-	 * @param  {Object}
-	 * @return {Object}
-	 */
-	create(options) {
-		options = Object.assign({}, globalOptions, options);
+	const globalCredentials = {
+		auth: {
+			tokenHost: '',
+			tokenPath: '/eaccountingapi/oauth/token',
+			revokePath: '/eaccountingapi/oauth/revoke',
+			authorizePath: '/eaccountingapi/oauth/authorize'
+		}
+	}
 
- 		return {
- 			customerInvoiceDrafts: customerInvoiceDraftsModule(options),
- 			customers: CustomersModule(options),
- 			articles: CustomersModule(options)
- 		};
-	},
+	return {
+
+		auth(credentials) {
+			credentials = Object.assign({}, credentials, globalCredentials);
+			return require('simple-oauth2').create(credentials);
+		},
+		/**
+		 * @param  {Object}
+		 * @return {Object}
+		 */
+		create(options) {
+			options = Object.assign({}, globalOptions, options);
+
+	 		return {
+	 			customerInvoiceDrafts: customerInvoiceDraftsModule(options),
+	 			customers: CustomersModule(options),
+	 			articles: CustomersModule(options)
+	 		};
+		},
+
+	};
 };
 
 // 1. authenticate
