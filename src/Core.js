@@ -7,43 +7,71 @@ const request = Promise.promisify(require('request'), {
 
 module.exports = (config) => {
 
+	const auth = require('./..').auth({
+		client: config.client
+	});
+
+	function getToken(){
+		return new Promise(function(forfill, reject){
+
+			// check if token is expired.
+			var token = auth.accessToken.create(config.token);
+
+			if(typeof config.renewedTokenFunction === 'function'){
+					if (token.expired()) {
+					// Callbacks
+					token.refresh((error, result) => {
+						config.renewedTokenFunction(result);
+						forfill(result);
+					});
+				} else {
+					forfill(token);
+				}
+			} else {
+				forfill(token);
+			}
+		});
+	}
+
 	function call(method, url, params){
 		const options = Object.assign({}, {
 			method,
 			headers: {},
 		}, config.http);
 
-		options.uri = options.uri + '/' + config.apiVersion + '/' + url;
+		return new Promise(function(forfill, reject){
+			getToken().then(function(token){
+				options.uri = options.uri + '/' + config.apiVersion + '/' + url;
 
-		// if (Object.keys(params).length === 0) params = null;
-	    if (method !== 'GET') {
-	      if (config.options.bodyFormat === 'form') {
-	        options.form = params;
-	      } else if (config.options.bodyFormat === 'json') {
-	        options.json = true;
-	        options.body = params;
-	      } else {
-	        // joi should prevent us from getting here, but throw to be safe.
-	        throw new Error(
-	          `Unknown bodyFormat value: ${config.options.bodyFormat}`
-	        );
-	      }
-	    }
+				// if (Object.keys(params).length === 0) params = null;
+			    if (method !== 'GET') {
+					if (config.options.bodyFormat === 'form') {
+						options.form = params;
+					} else if (config.options.bodyFormat === 'json') {
+						options.json = true;
+						options.body = params;
+					} else {
+						// joi should prevent us from getting here, but throw to be safe.
+						throw new Error(
+							`Unknown bodyFormat value: ${config.options.bodyFormat}`
+						);
+					}
+			    }
 
-		options.headers.Authorization = `Bearer ${config.token}`;
-		console.log(options);
-		return request(options);
+				options.headers.Authorization = `${token.token.token_type} ${token.token.access_token}`;
+
+				forfill(request(options));
+			});
+		});
 	};
 
-	function api(method, url, params, callback) {
+	function api(method, url, params) {
 		if (typeof params === 'function') {
 		  callback = params;
 		  params = {};
 		}
 
-		return call(method, url, params)
-		  // .spread(parseReponse)
-		  .nodeify(callback);
+		return call(method, url, params);
 	}
 
 	return {

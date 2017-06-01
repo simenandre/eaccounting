@@ -28,8 +28,8 @@ module.exports = {
 	 * @param  {Object}
 	 * @return {Object}
 	 */
-	create(token, options) {
-		options = Object.assign({token: token}, globalOptions, options);
+	create(options) {
+		options = Object.assign({}, globalOptions, options);
 
  		return {
  			customerInvoiceDrafts: customerInvoiceDraftsModule(options),

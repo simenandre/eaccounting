@@ -2,7 +2,6 @@
 
 module.exports = (config) => {
 	const CoreModule = require('./core')(config);
-
 	const endpoint = 'customers';
 
 	function get(id){
@@ -25,15 +24,10 @@ module.exports = (config) => {
 		return CoreModule.api('POST', endpoint, data);
 	}
 
-	function delete(id){
-		return CoreModule.api('DELETE', endpoint + '/' + id);
-	}
-
 	return {
 		get,
 		getAll,
 		update,
-		add,
-		delete,
+		add
 	}
 };
