@@ -1,6 +1,8 @@
 'use strict';
 
 const customerInvoiceDraftsModule = require('./src/CustomerInvoiceDrafts');
+const ArticlesModule = require('./src/Articles');
+const CustomersModule = require('./src/Customers');
 
 const globalOptions = {
 	http: {
@@ -33,6 +35,8 @@ module.exports = {
 
  		return {
  			customerInvoiceDrafts: customerInvoiceDraftsModule(options),
+ 			customers: CustomersModule(options),
+ 			articles: CustomersModule(options)
  		};
 	},
 };
