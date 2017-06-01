@@ -1,6 +1,6 @@
 # eAccounting-node
 
-A simple client module for accessing Visma eAccounting's API. It is still early stages in development, please refer to [Current Development Stage](#current-development-stage) for  
+A simple client module for accessing Visma eAccounting's API. It is still early stages in development, please refer to [Current Development Stage](#current-development-stage) for the current development stage.
 
 ## Authentication
 
