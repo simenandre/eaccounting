@@ -81,6 +81,9 @@ All of the functions have the same function names, as of now.
         name: "Github Inc."
     })
 
+*Delete*
+    
+    var customer = eaccounting.customers.remove(1337)
 
 
 ## Contribute!
