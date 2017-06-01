@@ -31,12 +31,16 @@ module.exports = (config) => {
 		});
 	}
 
-	function call(method, url, params){
+	function call(method, url, params, bodyFormat){
 		const options = Object.assign({}, {
 			method,
 			json: true,
 			headers: {},
 		}, config.http);
+
+		if(typeof bodyFormat !== 'undefined'){
+			bodyFormat = 'json';
+		}
 
 		return new Promise(function(forfill, reject){
 			getToken().then(function(token){
@@ -44,9 +48,9 @@ module.exports = (config) => {
 
 				// if (Object.keys(params).length === 0) params = null;
 			    if (method !== 'GET') {
-					if (config.options.bodyFormat === 'form') {
+					if (bodyFormat === 'form') {
 						options.form = params;
-					} else if (config.options.bodyFormat === 'json') {
+					} else if (bodyFormat === 'json') {
 						options.json = true;
 						options.body = params;
 					} else {
