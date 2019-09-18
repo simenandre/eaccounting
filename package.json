@@ -19,6 +19,6 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "request-promise": "^4.2.1",
-    "simple-oauth2": "^1.2.0"
+    "simple-oauth2": "^2.4.0"
   }
 }
