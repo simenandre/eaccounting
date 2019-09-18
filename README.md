@@ -1,5 +1,7 @@
 # eAccounting-node
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/cobraz/eaccounting.svg)](https://greenkeeper.io/)
+
 A simple client module for accessing Visma eAccounting's API. It is still early stages in development, please refer to [Current Development Stage](#current-development-stage) for the current development stage.
 
 ## Authentication
