@@ -18,7 +18,6 @@
   "homepage": "https://github.com/cobraz/eaccounting#readme",
   "dependencies": {
     "bluebird": "^3.5.0",
-    "camelcase": "^6.0.0",
     "request-promise": "^4.2.1",
     "simple-oauth2": "^4.1.0"
   }
